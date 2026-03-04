@@ -17,13 +17,13 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-north-1
+          aws-region: us-west-1
 
       - name: Login to ECR
         run: |
-          aws ecr get-login-password --region eu-north-1 | \
+          aws ecr get-login-password --region us-west-1 | \
           docker login --username AWS --password-stdin \
-          547619294594.dkr.ecr.eu-north-1.amazonaws.com
+          547619294594.dkr.ecr.us-west-1.amazonaws.com
 
       - name: Build Image
         run: |
@@ -32,10 +32,10 @@ jobs:
       - name: Tag Image
         run: |
           docker tag ecs_test:${{ github.sha }} \
-          547619294594.dkr.ecr.eu-north-1.amazonaws.com/ecs:${{ github.sha }} 
+          547619294594.dkr.ecr.us-west-1.amazonaws.com/ecs:${{ github.sha }} 
           
 
       - name: Push Image
         run: |
           docker push \
-          547619294594.dkr.ecr.eu-north-1.amazonaws.com/ecs:${{ github.sha }}
+          547619294594.dkr.ecr.us-west-1.amazonaws.com/ecs:${{ github.sha }}
